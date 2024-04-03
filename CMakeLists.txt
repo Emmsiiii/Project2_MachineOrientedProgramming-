@@ -5,5 +5,6 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(Project2_MachineOrientedProgramming_
         Classes/deck.c
-        README.md)
+        README.md
+        Classes/.idea/move.c)
 
