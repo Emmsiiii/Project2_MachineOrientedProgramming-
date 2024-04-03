@@ -49,11 +49,19 @@ cmake_ninja_workdir = /Users/emma/Documents/GitHub/Project2_MachineOrientedProgr
 
 build cmake_object_order_depends_target_Project2_MachineOrientedProgramming_: phony || CMakeFiles/Project2_MachineOrientedProgramming_.dir
 
-build CMakeFiles/Project2_MachineOrientedProgramming_.dir/deck.c.o: C_COMPILER__Project2_MachineOrientedProgramming__unscanned_Debug /Users/emma/Documents/GitHub/Project2_MachineOrientedProgramming-/deck.c || cmake_object_order_depends_target_Project2_MachineOrientedProgramming_
-  DEP_FILE = CMakeFiles/Project2_MachineOrientedProgramming_.dir/deck.c.o.d
+build CMakeFiles/Project2_MachineOrientedProgramming_.dir/Classes/deck.c.o: C_COMPILER__Project2_MachineOrientedProgramming__unscanned_Debug /Users/emma/Documents/GitHub/Project2_MachineOrientedProgramming-/Classes/deck.c || cmake_object_order_depends_target_Project2_MachineOrientedProgramming_
+  DEP_FILE = CMakeFiles/Project2_MachineOrientedProgramming_.dir/Classes/deck.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/Project2_MachineOrientedProgramming_.dir
-  OBJECT_FILE_DIR = CMakeFiles/Project2_MachineOrientedProgramming_.dir
+  OBJECT_FILE_DIR = CMakeFiles/Project2_MachineOrientedProgramming_.dir/Classes
+  TARGET_COMPILE_PDB = CMakeFiles/Project2_MachineOrientedProgramming_.dir/
+  TARGET_PDB = Project2_MachineOrientedProgramming_.pdb
+
+build CMakeFiles/Project2_MachineOrientedProgramming_.dir/Classes/main.c.o: C_COMPILER__Project2_MachineOrientedProgramming__unscanned_Debug /Users/emma/Documents/GitHub/Project2_MachineOrientedProgramming-/Classes/main.c || cmake_object_order_depends_target_Project2_MachineOrientedProgramming_
+  DEP_FILE = CMakeFiles/Project2_MachineOrientedProgramming_.dir/Classes/main.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/Project2_MachineOrientedProgramming_.dir
+  OBJECT_FILE_DIR = CMakeFiles/Project2_MachineOrientedProgramming_.dir/Classes
   TARGET_COMPILE_PDB = CMakeFiles/Project2_MachineOrientedProgramming_.dir/
   TARGET_PDB = Project2_MachineOrientedProgramming_.pdb
 
@@ -65,7 +73,7 @@ build CMakeFiles/Project2_MachineOrientedProgramming_.dir/deck.c.o: C_COMPILER__
 #############################################
 # Link the executable Project2_MachineOrientedProgramming_
 
-build Project2_MachineOrientedProgramming_: C_EXECUTABLE_LINKER__Project2_MachineOrientedProgramming__Debug CMakeFiles/Project2_MachineOrientedProgramming_.dir/deck.c.o
+build Project2_MachineOrientedProgramming_: C_EXECUTABLE_LINKER__Project2_MachineOrientedProgramming__Debug CMakeFiles/Project2_MachineOrientedProgramming_.dir/Classes/deck.c.o CMakeFiles/Project2_MachineOrientedProgramming_.dir/Classes/main.c.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
   OBJECT_DIR = CMakeFiles/Project2_MachineOrientedProgramming_.dir
   POST_BUILD = :
