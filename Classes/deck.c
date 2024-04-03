@@ -1,4 +1,8 @@
 #include <stdio.h>
+
+
+
+
 int main() {
     // printf() displays the string inside quotation
     printf("Hello, World!");
@@ -6,6 +10,12 @@ int main() {
     return 0;
 
 }
+
+// deck into 7 coloumns
+
+
+
+
 
 
 //
