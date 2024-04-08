@@ -24,10 +24,15 @@ int main() {
     // finder og fjerner et kort
     Node* foundNode = findCard(myList, card2);
     if (foundNode != NULL) {
-        printf("Found card: %s%c\n", foundNode->card.rank, foundNode->card.suit);
+        printf("Removing card: %s%c\n", foundNode->card.rank, foundNode->card.suit);
+        removeNode(myList, foundNode);
     } else {
         printf("Card not found.\n");
     }
+
+    // Printer listen efter sletningen
+    printf("List contents after deletion: ");
+    printList(myList);
 
     // sletter listen
     destroyList(myList);
