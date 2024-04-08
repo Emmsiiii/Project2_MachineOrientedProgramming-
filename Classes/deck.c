@@ -1,31 +1,7 @@
-//
-// Created by Emma Rebner on 03/04/2024.
-//
-
+#include "deck.h"
 #include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
-#include <stdlib.h> // include for malloc
-
-
-// Subtask 1.1: Define Card Struct
-struct Card {
-    char rank[10];       // Enough space for '10' plus a null terminator
-    char suit;          // Suit of the card (e.g., 'H' for hearts, 'S' for spades)
-    bool isVisible;     // Visibility of the card (0 for face down, 1 for face up)
-};
-
-// Subtask 1.2: Define Node Struct
-typedef struct Node {
-    struct Card card;          // Card held by the node
-    struct Node* next;  // Pointer to the next node
-} Node;
-
-// Subtask 1.3: Define List Struct
-typedef struct {
-    Node* head;         // Pointer to the head node of the list
-    int size;           // Size of the list (optional)
-} List;
+#include <stdlib.h> // For malloc and free
+#include <string.h> // For strcmp
 
 // Subtask 2.1: Create and Destroy
 List* createList() {
@@ -108,7 +84,8 @@ void removeNode(List* list, Node* nodeToRemove) {
 void printList(List* list) {
     Node* current = list->head;
     while (current != NULL) {
-        printf("%c%c ", current->card.rank, current->card.suit);
+        // Use %s for printing the string rank and %c for the single char suit
+        printf("%s%c ", current->card.rank, current->card.suit);
         current = current->next;
     }
     printf("\n");

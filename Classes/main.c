@@ -1,28 +1,35 @@
 //
 #include <stdio.h>
-#include "deck.c"
+#include "deck.h"
 
 int main() {
+
+    // opretter ny liste
     List* myList = createList();
 
-    struct Card card1 = {'A', 'H', 1};
-    struct Card card2 = {'2', 'D', 0};
-    struct Card card3 = {'K', 'S', 1};
+    // opretter kort
+    struct Card card1 = {"A", 'H', true};  // Rank is a string, so use double quotes
+    struct Card card2 = {"2", 'D', false}; // Same as above, use double quotes
+    struct Card card3 = {"K", 'S', true};  // Same as above
 
+    // indsætter kort i liste
     insertAtHead(myList, card1);
     insertAtTail(myList, card2);
     insertAtTail(myList, card3);
 
+    // udskriver listen
     printf("List contents: ");
     printList(myList);
 
+    // finder og fjerner et kort
     Node* foundNode = findCard(myList, card2);
     if (foundNode != NULL) {
-        printf("Found card: %c%c\n", foundNode->card.rank, foundNode->card.suit);
+        printf("Found card: %s%c\n", foundNode->card.rank, foundNode->card.suit);
     } else {
         printf("Card not found.\n");
     }
 
+    // sletter listen
     destroyList(myList);
 
     return 0;
