@@ -33,6 +33,11 @@ int main() {
     // opretter ny liste
     List *myList = createList();
 
+    // Print the initial view when the game starts
+    printInitialView();
+
+    struct DeckNode **head = NULL; // Start with an empty list
+
     // opretter kort
     struct Card card1 = {"A", 'H', true};  // Rank is a string, so use double quotes
     struct Card card2 = {"2", 'D', false}; // Same as above, use double quotes
@@ -43,10 +48,13 @@ int main() {
     insertAtTail(myList, card2);
     insertAtTail(myList, card3);
 
+    /*
     // udskriver listen
     printf("List contents: ");
     printList(myList);
+    */
 
+    /*
     // finder og fjerner et kort
     Node *foundNode = findCard(myList, card2);
     if (foundNode != NULL) {
@@ -55,16 +63,18 @@ int main() {
     } else {
         printf("Card not found.\n");
     }
+     */
 
+    /*
     // Printer listen efter sletningen
     printf("List contents after deletion: ");
     printList(myList);
+    */
 
+    /*
     // sletter listen
     destroyList(myList);
-
-    // Print the initial view when the game starts
-    printInitialView();
+    */
 
     // Now enter into the game loop or the rest of your game logic
     char command[10];
@@ -75,22 +85,31 @@ int main() {
 
         // Process the command
         if (strcmp(command, "LD") == 0) {
-            // Load deck command
-            // Call a function to load the deck from a file
+            char filename[100];
+            printf("Enter deck filename: ");
+            scanf("%99s", filename);
+
+            if (!loadDeck((struct DeckNode **) &head, filename)) {
+                fprintf(stderr, "Failed to load the deck from '%s'.\n", filename);
+                // Decide whether to continue or not, possibly with a default deck
+            } else {
+                printf("Deck loaded successfully.\n");
+                // Proceed with game using the loaded deck
+            }
         } else if (strcmp(command, "SW") == 0) {
             // Show deck command
-            printList(myList);
+            // (Assuming printList is modified to handle a DeckNode)
+            printList(head);
         } else if (strcmp(command, "SI") == 0) {
             // Shuffle deck (interleave) command
-            // Call a function to shuffle the deck using interleaving
+            // Implement shuffle logic here
         } else if (strcmp(command, "SR") == 0) {
             // Shuffle deck (random) command
-            // Call a function to shuffle the deck randomly
+            // Implement shuffle logic here
         } else if (strcmp(command, "SD") == 0) {
             // Save deck command
-            // Call a function to save the current deck to a file
+            // Implement save deck logic here
         } else if (strcmp(command, "QQ") == 0) {
-            // Quit command
             printf("Quitting game.\n");
             break; // Exit the loop to end the game
         } else {
@@ -98,15 +117,13 @@ int main() {
         }
     }
 
-    // Clean up resources such as freeing memory
-    destroyList(myList);
-
-    struct DeckNode* head = NULL; // Start with an empty list
-
     // Load the deck
-    if (!loadDeck(head, "path_to_deck_file.txt")) {
+    if (!loadDeck((struct DeckNode **) &head, "deck.txt")) {
         fprintf(stderr, "Failed to load the deck.\n");
         // Handle error
     }
+
+    destroyList((List *) head);
+
     return 0;
 }
