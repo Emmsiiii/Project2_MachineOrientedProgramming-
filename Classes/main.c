@@ -3,6 +3,7 @@
 #include <string.h> // Include this for strcpy and other string functions
 
 
+// Subtask 1.1
 // Define a struct to represent a playing card
 struct Card {
     char rank[3];     // Enough space for '10' plus a null terminator
