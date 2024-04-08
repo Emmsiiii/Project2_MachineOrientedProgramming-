@@ -7,5 +7,5 @@ add_executable(Project2_MachineOrientedProgramming_
         Classes/deck.c
         README.md
         Classes/move.c
-        Classes/Emmasopgave.c)
+        Classes/main.c)
 
