@@ -6,5 +6,6 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(Project2_MachineOrientedProgramming_
         Classes/deck.c
         README.md
-        Classes/move.c)
+        Classes/move.c
+        Classes/Emmasopgave.c)
 
