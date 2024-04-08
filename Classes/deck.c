@@ -117,7 +117,8 @@ void printList(List* list) {
 Node* findCard(List* list, struct Card cardToFind) {
     Node* current = list->head;
     while (current != NULL) {
-        if (current->card.rank == cardToFind.rank && current->card.suit == cardToFind.suit) {
+        // Use strcmp for string comparison and correct access to card fields
+        if (strcmp(current->card.rank, cardToFind.rank) == 0 && current->card.suit == cardToFind.suit) {
             return current;
         }
         current = current->next;

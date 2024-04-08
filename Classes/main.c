@@ -5,9 +5,9 @@
 int main() {
     List* myList = createList();
 
-    Card card1 = {'A', 'H', 1};
-    Card card2 = {'2', 'D', 0};
-    Card card3 = {'K', 'S', 1};
+    struct Card card1 = {'A', 'H', 1};
+    struct Card card2 = {'2', 'D', 0};
+    struct Card card3 = {'K', 'S', 1};
 
     insertAtHead(myList, card1);
     insertAtTail(myList, card2);
