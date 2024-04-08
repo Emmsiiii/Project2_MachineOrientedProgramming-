@@ -4,10 +4,15 @@
 
 // Subtask 1.1: Define Card Struct
 struct Card {
-    char rank[13];      // Ranken kan kun være en værdi, men der er plads til 14 forskellige ranks + null term
-    char suit;          // Suit af kortet ('H' for hearts, 'S' for spades, 'D' for diamond & 'C' for clubs)
+    char rank[3];       // Enough space for '10' plus a null terminator
+    char suit;          // bruger chars som 'H', 'D', 'C', 'S' for hearts, diamonds, clubs, spades
     bool isVisible;     // Visibility of the card (0 for face down, 1 for face up)
 };
+
+typedef struct DeckNode {
+    struct Card card;
+    struct DeckNode* next;
+} deckNode;
 
 // Subtask 1.2: Define Node Struct
 typedef struct Node {

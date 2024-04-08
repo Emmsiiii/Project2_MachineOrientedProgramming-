@@ -84,12 +84,16 @@ void removeNode(List* list, Node* nodeToRemove) {
 void printList(List* list) {
     Node* current = list->head;
     while (current != NULL) {
-        // Use %s for printing the string rank and %c for the single char suit
-        printf("%s%c ", current->card.rank, current->card.suit);
+        if (current->card.isVisible) {
+            printf("%s%c ", current->card.rank, current->card.suit);
+        } else {
+            printf("[] ");
+        }
         current = current->next;
     }
     printf("\n");
 }
+
 
 Node* findCard(List* list, struct Card cardToFind) {
     Node* current = list->head;

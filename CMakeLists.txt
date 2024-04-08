@@ -9,5 +9,8 @@ add_executable(Project2_MachineOrientedProgramming_
         Classes/move.c
         Classes/main.c
         Classes/deck.h
+        Classes/FileHandler.c
+        Classes/FileHandler.h
+        Classes/yukon
 )
 
