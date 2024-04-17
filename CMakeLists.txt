@@ -7,5 +7,10 @@ add_executable(Project2_MachineOrientedProgramming_
         Classes/deck.c
         README.md
         Classes/move.c
-        Classes/main.c)
+        Classes/main.c
+        Classes/deck.h
+        Classes/FileHandler.c
+        Classes/FileHandler.h
+        Classes/yukon
+)
 
