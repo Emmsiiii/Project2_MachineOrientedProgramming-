@@ -80,7 +80,6 @@ int main() {
     char command[10];
     while (1) {
         // Get user command
-        printf("\nINPUT > ");
         scanf("%9s", command);
 
         // Process the command
