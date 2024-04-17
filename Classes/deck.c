@@ -13,15 +13,6 @@ List* createList() {
     return newList;
 }
 
-Node* createNode(struct Card card) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    if (newNode != NULL) {
-        newNode->card = card;
-        newNode->next = NULL;
-    }
-    return newNode;
-}
-
 void destroyList(List* list) {
     if (list != NULL) {
         Node* current = list->head;
@@ -107,7 +98,9 @@ Node* findCard(List* list, struct Card cardToFind) {
     return NULL;
 }
 
-// deck into 7 coloumns
+
+// file handler
+
 
 
 
