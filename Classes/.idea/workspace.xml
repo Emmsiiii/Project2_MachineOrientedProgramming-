@@ -10,9 +10,7 @@
     <option name="reloaded" value="true" />
   </component>
   <component name="CMakeRunConfigurationManager">
-    <generated>
-      <config projectName="Project2_MachineOrientedProgramming_" targetName="Project2_MachineOrientedProgramming_" />
-    </generated>
+    <generated />
   </component>
   <component name="CMakeSettings">
     <configurations>
@@ -21,10 +19,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2062b56c-ebbd-4252-a4bd-e62495b633c1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Emmasopgave.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FileHandler.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FileHandler.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deck.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yukon" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Classes.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Classes.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deck.c" beforeDir="false" afterPath="$PROJECT_DIR$/deck.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +67,7 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Merging Setare",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -71,10 +76,10 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="C/C++ File.main.c">
-    <configuration name="Project2_MachineOrientedProgramming_" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project2_MachineOrientedProgramming_" TARGET_NAME="Project2_MachineOrientedProgramming_" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project2_MachineOrientedProgramming_" RUN_TARGET_NAME="Project2_MachineOrientedProgramming_">
+  <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
     <configuration name="main.c" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project2_MachineOrientedProgramming_" TARGET_NAME="main.c" CONFIG_NAME="main.c">
@@ -83,10 +88,6 @@
         <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="C/C++ File.main.c" />
-      <item itemvalue="CMake Application.Project2_MachineOrientedProgramming_" />
-    </list>
     <recent_temporary>
       <list>
         <item itemvalue="C/C++ File.main.c" />
@@ -105,6 +106,7 @@
       <workItem from="1712233253567" duration="73000" />
       <workItem from="1712233343660" duration="276000" />
       <workItem from="1712394691174" duration="1163000" />
+      <workItem from="1713354489364" duration="14000" />
     </task>
     <servers />
   </component>
