@@ -21,11 +21,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2062b56c-ebbd-4252-a4bd-e62495b633c1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Emmasopgave.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Classes.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Classes.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileHandler.c" beforeDir="false" afterPath="$PROJECT_DIR$/FileHandler.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/move.c" beforeDir="false" afterPath="$PROJECT_DIR$/move.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +36,15 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
@@ -62,7 +69,7 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "new-filehandler",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -71,7 +78,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="C/C++ File.main.c">
+  <component name="RunManager" selected="CMake Application.Project2_MachineOrientedProgramming_">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Project2_MachineOrientedProgramming_" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project2_MachineOrientedProgramming_" TARGET_NAME="Project2_MachineOrientedProgramming_" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project2_MachineOrientedProgramming_" RUN_TARGET_NAME="Project2_MachineOrientedProgramming_">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -105,6 +117,7 @@
       <workItem from="1712233253567" duration="73000" />
       <workItem from="1712233343660" duration="276000" />
       <workItem from="1712394691174" duration="1163000" />
+      <workItem from="1713352066989" duration="1426000" />
     </task>
     <servers />
   </component>
