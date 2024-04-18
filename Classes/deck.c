@@ -31,7 +31,6 @@ void printList(List* list) {
 //struct DeckNode* loadDeck(const char* filename) {
     // Implementation goes here
 
-
 // Subtask 2.1: Create and Destroy
 /*List* createList() {
     List* newList = (List*)malloc(sizeof(List));

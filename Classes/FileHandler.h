@@ -3,5 +3,6 @@
 #include "deck.h"
 
 void save_deck_to_a_file(deckNode* head, char* filename);
+void loadDeck(deckNode** head, const char* filename);
 
 #endif

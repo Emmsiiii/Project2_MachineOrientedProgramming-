@@ -6,12 +6,12 @@
 
 
 void loadDeck(deckNode** head, const char* filename) {
-    char file_path[100];
-    sprintf(file_path, "Files/%s", filename);
+    // Print the file path to check if it's correct
+    printf("Attempting to load deck from file: %s\n", filename);
 
-    FILE* fp = fopen(file_path, "r");
+    FILE* fp = fopen(filename, "r");
     if (fp == NULL) {
-        printf("Error: unable to open file for reading.\n");
+        perror("Error opening file");
         return;
     }
 
