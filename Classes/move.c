@@ -1,145 +1,221 @@
-//
-// Created by Setare Izadi on 03/04/2024.
-//
-#include "FileHandler.h"
-#include <stdio.h>
 #include <stdbool.h>
+#include "move.h"
 #include <stdlib.h>
-#include <libc.h>
-#include "deck.h"
+#include <string.h> // Include for strcmp
 
 
-// Forward declarations
-int getRankIndex(const char *rank);
-
-int getSuitIndex(char suit);
-
-bool isValidRank(const char *rank);
-
-bool isValidSuit(char suit);
-
-
-bool isValidRank(const char *rank) {
-    const char *validRanks[] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
-    int numValidRanks = sizeof(validRanks) / sizeof(validRanks[0]);
-    for (int i = 0; i < numValidRanks; i++) {
-        if (strcmp(rank, validRanks[i]) == 0) {
-            return true;
-        }
+// Function to convert a card rank from a letter to an integer
+int convertFrokLetter(char letter) {
+    const char *ranks = "AKQJT98765432";
+    const char *pos = strchr(ranks, letter);
+    if (pos != NULL) {
+        return 14 - (int)(pos - ranks);
+    } else {
+        return strtol(&letter, NULL, 10);
     }
-    return false;
 }
 
-bool isValidSuit(char suit) {
-    return suit == 'H' || suit == 'D' || suit == 'C' || suit == 'S';
-}
+// Function to check if a move from one column to another is legal
+int legalMove(column *col, int colStart, char type, char number, int colEnd) {
+    column *fromCol = col;
+    column *toCol = col;
+    ListElement *currNode;
+    ListElement *prev;
 
-bool isValidCard(struct Card *card) {
-    return isValidRank(card->rank) && isValidSuit(card->suit);
-}
-
-bool validateDeck(struct DeckNode *head) {
-    int cardCount = 0;
-    bool seenCards[4][13] = {false};  // For all suits and ranks
-    struct DeckNode *current = head;
-
-    while (current != NULL) {
-        int rankIndex = getRankIndex(current->card.rank);
-        int suitIndex = getSuitIndex(current->card.suit);
-
-        // If the suit index is invalid, handle it accordingly
-        if (suitIndex == -1) {
-            // Handle the error, such as skipping the card or breaking out of the loop
-            // For example:
-            fprintf(stderr, "Invalid suit encountered.\n");
-            break;
-        }
-
-        // If we've already seen this card, it's a duplicate
-        if (seenCards[suitIndex][rankIndex]) {
-            return false;
-        }
-        seenCards[suitIndex][rankIndex] = true;
-        cardCount++;
-        current = current->next;
+    for (int i = 0; i < colStart-1; ++i) {
+        fromCol = fromCol->next;
     }
+    currNode = fromCol->node;
 
-    // Check if the deck has exactly 52 cards
-    return cardCount == 52;
-}
-
-bool loadDeck(struct DeckNode **head, const char *filename) {
-    FILE *file = fopen(filename, "r");
-    if (file == NULL) {
-        // Handle file not found
-        return false;
-    }
-
-    char rank[3];
-    char suit;
-    struct DeckNode *tempHead = NULL; // Temporary head to hold the new list
-
-    while (fscanf(file, "%2s %c\n", rank, &suit) == 2) {
-        struct DeckNode *newNode = malloc(sizeof(struct DeckNode));
-        if (newNode == NULL) {
-            fclose(file);
-            // Free the partially created list before returning
-            while (tempHead != NULL) {
-                struct DeckNode *temp = tempHead;
-                tempHead = tempHead->next;
-                free(temp);
+    if (number != 'F' && type != 'F') {
+        while (currNode->card->rank != number || currNode->card->suit != type) {
+            if (currNode->next == NULL) {
+                return 0;
             }
-            return false;
+            prev = currNode;
+            currNode = currNode->next;
         }
-
-        strcpy(newNode->card.rank, rank);
-        newNode->card.suit = suit;
-        newNode->card.isVisible = false;
-
-        if (!isValidCard(&newNode->card)) {
-            free(newNode);
-            fclose(file);
-            return false;
+    } else {
+        while (currNode->next != NULL) {
+            prev = currNode;
+            currNode = currNode->next;
         }
-
-        newNode->next = tempHead;
-        tempHead = newNode;
     }
 
-    if (!validateDeck(tempHead)) {
-        fclose(file);
+    for (int i = 0; i < colEnd-1; ++i) {
+        toCol = toCol->next;
+    }
+
+    int checkerNumberFirst = convertFrokLetter(currNode->card->suit);
+
+    if (toCol->node == NULL && checkerNumberFirst == 13) {
+        int turned = 1;
+        if (!prev->card->isVisible) {
+            prev->card->isVisible = true;
+            turned = 2;
+        }
+        prev->next = NULL;
+        toCol->node = currNode;
+        return turned;
+    }
+
+    ListElement *lastElementInRow = toCol->node;
+
+    while (lastElementInRow->next != NULL) {
+        lastElementInRow = lastElementInRow->next;
+    }
+
+    int checkerNumberLast = convertFrokLetter(lastElementInRow->card->suit);
+
+    if (checkerNumberLast == checkerNumberFirst + 1 && lastElementInRow->card->rank != currNode->card->rank) {
+        int turned = 1;
+        lastElementInRow->next = currNode;
+        if (!prev->card->isVisible) {
+            prev->card->isVisible = true;
+            turned = 2;
+        }
+        prev->next = NULL;
+
+        return turned;
+    } else {
+        return 0;
+    }
+}
+
+// Function to check if a move from a column to a pile is legal
+int legalPileMove(column *col, int colStart, int colEnd) {
+    column *fromCol = col;
+    column *toCol = col;
+    ListElement *currNode;
+    ListElement *prev;
+    ListElement *pileNode;
+
+    for (int i = 0; i < colStart-1; ++i) {
+        fromCol = fromCol->next;
+    }
+
+    if (fromCol->node == NULL) {
+        return 0;
+    }
+
+    currNode = fromCol->node;
+
+    bool firstCard = true;
+    while (currNode->next != NULL) {
+        prev = currNode;
+        currNode = currNode->next;
+        firstCard = false;
+    }
+
+    for (int i = 0; i < colEnd+6; ++i) {
+        toCol = toCol->next;
+    }
+    int cardFrom = convertFrokLetter(currNode->card->suit);
+
+    if (toCol->node == NULL && cardFrom == 1) {
+        int turned = 1;
+        if (firstCard) {
+            fromCol->node = NULL;
+        } else {
+            if (!prev->card->isVisible) {
+                prev->card->isVisible = true;
+                turned = 2;
+            }
+            prev->next = NULL;
+        }
+        toCol->node = currNode;
+        return turned;
+    }
+
+    int cardPile;
+
+    if (toCol->node != NULL) {
+        pileNode = toCol->node;
+        while (pileNode->next != NULL) {
+            pileNode = pileNode->next;
+        }
+        cardPile = convertFrokLetter(pileNode->card->suit);
+    }
+
+    if (toCol->node != NULL && cardPile + 1 == cardFrom && currNode->card->rank == pileNode->card->rank) {
+        int turned = 1;
+        if (firstCard) {
+            fromCol->node = NULL;
+        } else {
+            if (!prev->card->isVisible) {
+                prev->card->isVisible = true;
+                turned = 2;
+            }
+            prev->next = NULL;
+        }
+        pileNode->next = currNode;
+        return turned;
+    } else {
+        return 0;
+    }
+}
+
+// Function to move a card from a pile to a column
+bool moveFromPileToC(column *col, int colStart, int colEnd) {
+    column *fromCol = col;
+    column *toCol = col;
+    ListElement *currNode;
+    ListElement *prev;
+    ListElement *columnNode;
+
+    for (int i = 0; i < colStart + 6; ++i) {
+        fromCol = fromCol->next;
+    }
+
+    if (fromCol->node == NULL) {
         return false;
     }
 
-    *head = tempHead; // Set the real head to the new list
-    fclose(file);
-    return true;
-}
+    currNode = fromCol->node;
 
-int getRankIndex(const char *rank) {
-    // Returns a unique index for each valid rank
-    const char *validRanks[] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
-    int numValidRanks = sizeof(validRanks) / sizeof(validRanks[0]);
-    for (int i = 0; i < numValidRanks; i++) {
-        if (strcmp(rank, validRanks[i]) == 0) {
-            return i;
+    bool firstCard = true;
+    while (currNode->next != NULL) {
+        prev = currNode;
+        currNode = currNode->next;
+        firstCard = false;
+    }
+
+    for (int i = 0; i < colEnd - 1; ++i) {
+        toCol = toCol->next;
+    }
+
+    int cardFrom = convertFrokLetter(currNode->card->suit);
+
+    if (toCol->node == NULL && cardFrom == 13) {
+        if (firstCard) {
+            fromCol->node = NULL;
+        } else {
+            prev->next = NULL;
         }
+        toCol->node = currNode;
+        return true;
     }
-    return -1;  // Invalid rank
+
+    if (toCol->node == NULL) {
+        return false;
+    }
+
+    columnNode = toCol->node;
+    while (columnNode->next != NULL) {
+        columnNode = columnNode->next;
+    }
+    int columnNodeNumber = convertFrokLetter(columnNode->card->suit);
+
+    if (columnNodeNumber == cardFrom + 1 && columnNode->card->rank != currNode->card->rank) {
+        if (firstCard) {
+            fromCol->node = NULL;
+        } else {
+            prev->next = NULL;
+        }
+        columnNode->next = currNode;
+        return true;
+    } else {
+        return false;
+    }
 }
 
-int getSuitIndex(char suit) {
-    // Returns a unique index for each valid suit
-    switch (suit) {
-        case 'H':
-            return 0;
-        case 'D':
-            return 1;
-        case 'C':
-            return 2;
-        case 'S':
-            return 3;
-        default:
-            return -1;  // Invalid suit
-    }
-}

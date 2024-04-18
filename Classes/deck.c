@@ -1,10 +1,40 @@
-#include "deck.h"
 #include <stdio.h>
-#include <stdlib.h> // For malloc and free
-#include <string.h> // For strcmp
+#include <stdlib.h>
+#include <string.h>
+#include "deck.h"
+
+
+// Double linked list
+deckNode* createDeckNode(char rank, char suit) {
+    deckNode* newNode = (deckNode*)malloc(sizeof(deckNode));
+    newNode->card.rank = rank;
+    newNode->card.suit = suit;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Implementation of the printList function
+void printList(List* list) {
+    Node* current = list->head;
+    while (current != NULL) {
+        if (current->card.isVisible) {
+            printf("%c%c ", current->card.rank, current->card.suit);
+        } else {
+            printf("[] ");
+        }
+        current = current->next;
+    }
+    printf("\n");
+}
+
+// Function to load deck from a file
+struct DeckNode* loadDeck(const char* filename) {
+    // Implementation goes here
+}
+
 
 // Subtask 2.1: Create and Destroy
-List* createList() {
+/*List* createList() {
     List* newList = (List*)malloc(sizeof(List));
     if (newList != NULL) {
         newList->head = NULL;
@@ -26,7 +56,7 @@ void destroyList(List* list) {
 }
 
 // Subtask 2.2: Insertion and Deletion
-void insertAtHead(List* list, struct Card card) {
+void insertAtHead(List* list, struct card card) {
     Node* newNode = createNode(card);
     if (newNode != NULL) {
         newNode->next = list->head;
@@ -35,7 +65,7 @@ void insertAtHead(List* list, struct Card card) {
     }
 }
 
-void insertAtTail(List* list, struct Card card) {
+void insertAtTail(List* list, struct card card) {
     Node* newNode = createNode(card);
     if (newNode != NULL) {
         if (list->head == NULL) {
@@ -76,7 +106,7 @@ void printList(List* list) {
     Node* current = list->head;
     while (current != NULL) {
         if (current->card.isVisible) {
-            printf("%s%c ", current->card.rank, current->card.suit);
+            printf("%c%c ", current->card.rank, current->card.suit);
         } else {
             printf("[] ");
         }
@@ -84,23 +114,5 @@ void printList(List* list) {
     }
     printf("\n");
 }
-
-
-Node* findCard(List* list, struct Card cardToFind) {
-    Node* current = list->head;
-    while (current != NULL) {
-        // Use strcmp for string comparison and correct access to card fields
-        if (strcmp(current->card.rank, cardToFind.rank) == 0 && current->card.suit == cardToFind.suit) {
-            return current;
-        }
-        current = current->next;
-    }
-    return NULL;
-}
-
-
-// file handler
-
-
-
+ */
 

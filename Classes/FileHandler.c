@@ -15,9 +15,10 @@ void save_deck_to_a_file(deckNode* head, char* filename) {
 
     deckNode* current = head;
     while (current != NULL) {
-        fprintf(fp, "%c\n", current-> card.suit);
+        fprintf(fp, "%c%c\n", current->card.rank, current->card.suit);
         current = current->next;
     }
 
     fclose(fp);
 }
+
