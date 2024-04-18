@@ -28,9 +28,8 @@ void printList(List* list) {
 }
 
 // Function to load deck from a file
-struct DeckNode* loadDeck(const char* filename) {
+//struct DeckNode* loadDeck(const char* filename) {
     // Implementation goes here
-}
 
 
 // Subtask 2.1: Create and Destroy

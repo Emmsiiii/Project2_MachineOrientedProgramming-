@@ -16,10 +16,7 @@ typedef struct ListElement {
     struct ListElement *next; // Sample field
 } ListElement;
 
-//int convertFrokLetter(char letter);
-//int legalMove(column *col, int colStart, char type, char number, int colEnd);
-//int legalPileMove(column *col, int colStart, int colEnd);
-//bool moveFromPileToC(column *col, int colStart, int colEnd);
+
 
 
 

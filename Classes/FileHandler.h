@@ -2,6 +2,6 @@
 #define FILE_HANDLER_H
 #include "deck.h"
 
-void loadDeck(struct DeckNode** head, const char* filename);
+void save_deck_to_a_file(deckNode* head, char* filename);
 
 #endif
