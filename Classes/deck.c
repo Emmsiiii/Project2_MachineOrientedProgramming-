@@ -1,116 +1,55 @@
+// deck.c
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <time.h>
 #include "deck.h"
 
-
-// Double linked list
-deckNode* createDeckNode(char rank, char suit) {
-    deckNode* newNode = (deckNode*)malloc(sizeof(deckNode));
-    newNode->card.rank = rank;
-    newNode->card.suit = suit;
-    newNode->next = NULL;
-    return newNode;
-}
-
-// Implementation of the printList function
-void printList(List* list) {
-    Node* current = list->head;
-    while (current != NULL) {
-        if (current->card.isVisible) {
-            printf("%c%c ", current->card.rank, current->card.suit);
-        } else {
-            printf("[] ");
-        }
-        current = current->next;
+column *createDeck() {
+    column *deck = (column *)malloc(sizeof(column));
+    deck->size = 0;
+    deck->capacity = 52;
+    deck->cards = (card **)malloc(deck->capacity * sizeof(card *));
+    for (int i = 0; i < deck->capacity; i++) {
+        deck->cards[i] = (card *)malloc(sizeof(card));
+        deck->cards[i]->rank = ' ';
+        deck->cards[i]->suit = ' ';
+        deck->cards[i]->hidden = 1;
     }
-    printf("\n");
-}
-
-// Function to load deck from a file
-//struct DeckNode* loadDeck(const char* filename) {
-    // Implementation goes here
-
-// Subtask 2.1: Create and Destroy
-/*List* createList() {
-    List* newList = (List*)malloc(sizeof(List));
-    if (newList != NULL) {
-        newList->head = NULL;
-        newList->size = 0;
-    }
-    return newList;
-}
-
-void destroyList(List* list) {
-    if (list != NULL) {
-        Node* current = list->head;
-        while (current != NULL) {
-            Node* next = current->next;
-            free(current);
-            current = next;
-        }
-        free(list);
-    }
-}
-
-// Subtask 2.2: Insertion and Deletion
-void insertAtHead(List* list, struct card card) {
-    Node* newNode = createNode(card);
-    if (newNode != NULL) {
-        newNode->next = list->head;
-        list->head = newNode;
-        list->size++;
-    }
-}
-
-void insertAtTail(List* list, struct card card) {
-    Node* newNode = createNode(card);
-    if (newNode != NULL) {
-        if (list->head == NULL) {
-            list->head = newNode;
-        } else {
-            Node* current = list->head;
-            while (current->next != NULL) {
-                current = current->next;
+    int index = 0;
+    for (int suit = 0; suit < 4; suit++) {
+        for (int rank = 2; rank <= 14; rank++) {
+            deck->cards[index]->rank = rank < 11 ? (char)(rank + '0') : (char)((rank - 10) + '0');
+            switch (suit) {
+                case 0:
+                    deck->cards[index]->suit = 'H';
+                    break;
+                case 1:
+                    deck->cards[index]->suit = 'D';
+                    break;
+                case 2:
+                    deck->cards[index]->suit = 'C';
+                    break;
+                case 3:
+                    deck->cards[index]->suit = 'S';
+                    break;
             }
-            current->next = newNode;
+            index++;
         }
-        list->size++;
     }
+    srand(time(NULL));
+    for (int i = 0; i < deck->capacity; i++) {
+        int j = rand() % deck->capacity;
+        card *temp = deck->cards[i];
+        deck->cards[i] = deck->cards[j];
+        deck->cards[j] = temp;
+    }
+    return deck;
 }
 
-void removeNode(List* list, Node* nodeToRemove) {
-    if (list->head == NULL || nodeToRemove == NULL) {
-        return;
+void destroyColumn(column *deck) {
+    for (int i = 0; i < deck->capacity; i++) {
+        free(deck->cards[i]);
     }
-
-    if (list->head == nodeToRemove) {
-        list->head = nodeToRemove->next;
-    } else {
-        Node* current = list->head;
-        while (current != NULL && current->next != nodeToRemove) {
-            current = current->next;
-        }
-        if (current != NULL) {
-            current->next = nodeToRemove->next;
-        }
-    }
-    free(nodeToRemove);
-    list->size--;
+    free(deck->cards);
+    free(deck);
 }
-
-// Subtask 2.3: Searching and Traversal
-void printList(List* list) {
-    Node* current = list->head;
-    while (current != NULL) {
-        if (current->card.isVisible) {
-            printf("%c%c ", current->card.rank, current->card.suit);
-        } else {
-            printf("[] ");
-        }
-        current = current->next;
-    }
-    printf("\n");
-}
- */
-

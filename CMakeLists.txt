@@ -13,7 +13,6 @@ add_executable(Project2_MachineOrientedProgramming_
         Classes/FileHandler.h
         Classes/yukon
         Classes/move.h
-        Classes/previousMoves.c
-        Classes/previousMoves.h
+        Classes/card.c
 )
 

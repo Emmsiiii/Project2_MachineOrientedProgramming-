@@ -1,8 +1,11 @@
 #ifndef FILE_HANDLER_H
 #define FILE_HANDLER_H
 #include "deck.h"
+#include <stdbool.h>
 
-void save_deck_to_a_file(deckNode* head, char* filename);
-void loadDeck(deckNode** head, const char* filename);
+void saveDeck(const char *filename, column *deck[]);
+void loadDeck(const char *filename, column *deck[]);
 
 #endif
+
+
