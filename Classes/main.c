@@ -5,6 +5,10 @@
 #include <unistd.h>
 #include <time.h>
 
+
+
+
+
 //enum suitType with the different suits
 enum suitType{hearts, diamonds, spades, clubs};
 
@@ -855,10 +859,11 @@ void commandLoop(){
 
 }
 
-
 int main() {
     srand(time(NULL));
     commandLoop();
 
     return 0;
 }
+
+
