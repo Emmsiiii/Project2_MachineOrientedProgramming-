@@ -2,6 +2,9 @@
 #include "deck.h"
 #include <string.h>
 #include "FileHandler.h"
+void saveDeck(struct DeckNode **head, const char *deck);
+void shuffleInterleave(struct DeckNode **head);
+void shuffleRandom(struct DeckNode **head);
 
 
 void printInitialView() {
@@ -24,7 +27,6 @@ void printInitialView() {
     // Placeholder for the last command and message
     printf("LAST Command: \n");
     printf("Message: \n");
-    printf("INPUT > ");
 }
 
 
@@ -77,44 +79,49 @@ int main() {
     */
 
     // Now enter into the game loop or the rest of your game logic
-    char command[10];
+    char input[256];
     while (1) {
-        // Get user command
-        scanf("%9s", command);
+        printf("INPUT > ");
+        if (fgets(input, sizeof(input), stdin)) {  // Read full line
+            char command[10];
+            char argument[100];
 
-        // Process the command
-        if (strcmp(command, "LD") == 0) {
-            char filename[100];
-            printf("Enter deck filename: ");
-            scanf("%99s", filename);
-
-            if (!loadDeck((struct DeckNode **) &head, filename)) {
-                fprintf(stderr, "Failed to load the deck from '%s'.\n", filename);
-                // Decide whether to continue or not, possibly with a default deck
-            } else {
-                printf("Deck loaded successfully.\n");
-                // Proceed with game using the loaded deck
+            // Parse the input for command and possibly an argument
+            if (sscanf(input, "%s %99[^\n]", command, argument) == 2) {
+                // Handle commands with arguments
+                if (strcmp(command, "LD") == 0) {
+                    if (!loadDeck((struct DeckNode **) &head, argument)) {
+                        fprintf(stderr, "Failed to load the deck from '%s'.\n", argument);
+                    } else {
+                        printf("Deck loaded successfully from '%s'.\n", argument);
+                    }
+                } else if (strcmp(command, "SD") == 0) {
+                    // Save deck logic
+                    saveDeck((struct DeckNode **) &head, argument);
+                }
+            } else if (sscanf(input, "%s", command) == 1) {
+                // Handle commands without arguments
+                if (strcmp(command, "SW") == 0) {
+                    printList(head);
+                } else if (strcmp(command, "SI") == 0) {
+                    // Shuffle logic interleaved
+                    shuffleInterleave(head);
+                } else if (strcmp(command, "SR") == 0) {
+                    // Shuffle logic random
+                    shuffleRandom(head);
+                } else if (strcmp(command, "QQ") == 0) {
+                    printf("Quitting game.\n");
+                    break; // Exit the loop to end the game
+                } else {
+                    printf("Unknown command.\n");
+                }
             }
-        } else if (strcmp(command, "SW") == 0) {
-            // Show deck command
-            // (Assuming printList is modified to handle a DeckNode)
-            printList(head);
-        } else if (strcmp(command, "SI") == 0) {
-            // Shuffle deck (interleave) command
-            // Implement shuffle logic here
-        } else if (strcmp(command, "SR") == 0) {
-            // Shuffle deck (random) command
-            // Implement shuffle logic here
-        } else if (strcmp(command, "SD") == 0) {
-            // Save deck command
-            // Implement save deck logic here
-        } else if (strcmp(command, "QQ") == 0) {
-            printf("Quitting game.\n");
-            break; // Exit the loop to end the game
         } else {
-            printf("Unknown command.\n");
+            // Handle fgets error or EOF
+            break;
         }
     }
+
 
     // Load the deck
     if (!loadDeck((struct DeckNode **) &head, "deck.txt")) {
