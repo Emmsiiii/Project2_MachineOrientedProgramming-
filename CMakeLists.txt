@@ -11,5 +11,6 @@ add_executable(Project2_MachineOrientedProgramming_
         Classes/deck.h
         Classes/FileHandler.c
         Classes/FileHandler.h
+        Classes/gui.c
 )
 
