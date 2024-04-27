@@ -12,5 +12,8 @@ add_executable(Project2_MachineOrientedProgramming_
         Classes/FileHandler.c
         Classes/FileHandler.h
         Classes/gui.c
+        Classes/.idea/Move.h
+        Classes/cards.h
+        Classes/.idea/Cards.c
 )
 

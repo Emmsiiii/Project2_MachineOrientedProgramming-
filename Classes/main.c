@@ -140,8 +140,9 @@ struct node* deleteFrom(struct linkedList *list, int cardValue, enum suitType su
         prev->visible = true;
     }
     return el;
-
 }
+
+
 //7 linked lists one for each column.
 //Maybe it would be better to just have one??
 // But then it might make some operations a bit harder idk
@@ -210,8 +211,6 @@ void cardToString(char *str,struct node *card){
 
     char suitNames[4] = {3,4,6,5};
     str[1] = suitNames[card->suit];
-
-
 }
 
 
@@ -794,17 +793,28 @@ void updateCardPiles(){
 }
 
 // Ask user for command and handles (some of it)
-int handleInput(){
+int handleInput() {
     printf("\nINPUT > ");
     char in[20];
-    gets(in);
-    if(in[0] == 0 || in[0] == ' '){
+
+    // Use fgets to read the input. Note that fgets includes the newline in the buffer.
+    if (fgets(in, sizeof(in), stdin) == NULL) {
+        // Handle end-of-file (EOF) or error
+        return 0;
+    }
+
+    // Remove the newline character if present
+    in[strcspn(in, "\n")] = 0;
+
+    if (in[0] == 0 || in[0] == ' ') {
+        // status variable seems to be used elsewhere, ensure it's declared properly
         status = "Invalid command";
         return 0;
     }
     strcpy(lastCommand, in);
 
-
+    return 1; // Indicate successful handling, adjust as per your logic
+}
 
     // STARTUP COMMANDS
     if(phase == STARTUP){
@@ -841,9 +851,9 @@ int handleInput(){
                 status = "Error: Unknown command in win phase";
             }
         }
+return 0;
     }
-    return 0;
-}
+
 
 void commandLoop(){
     bool quit = 0;
@@ -851,13 +861,11 @@ void commandLoop(){
         printGameBoard();
         quit = handleInput();
     }
-
-
 }
 
 
 int main() {
-    srand(time(NULL));
+    //srand(time(NULL));
     commandLoop();
 
     return 0;
