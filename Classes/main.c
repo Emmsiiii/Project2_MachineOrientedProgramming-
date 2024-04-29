@@ -6,9 +6,6 @@
 #include <time.h>
 
 
-
-
-
 //enum suitType with the different suits
 enum suitType{hearts, diamonds, spades, clubs};
 
@@ -150,8 +147,8 @@ struct node* deleteFrom(struct linkedList *list, int cardValue, enum suitType su
 //Maybe it would be better to just have one??
 // But then it might make some operations a bit harder idk
 struct linkedList A;
-struct  linkedList pile1;
-struct  linkedList pile2;
+struct linkedList pile1;
+struct linkedList pile2;
 struct linkedList splitPile;
 struct linkedList shufflePile;
 struct linkedList C1;
