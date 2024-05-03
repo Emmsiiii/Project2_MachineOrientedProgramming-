@@ -37,9 +37,11 @@ bool loadCardDeckFromFile(Deck* deck, const char* filename) {
     fclose(filePointer);
     return true;
 }
-
 bool saveCardDeckToFile(Deck* deck, const char* filename) {
-    FILE* filePointer = fopen(filename, "w");
+    // Default to "deck.txt" if no filename is provided or if the filename is an empty string
+    const char* outputFilename = (filename == NULL || filename[0] == '\0') ? "deck.txt" : filename;
+
+    FILE* filePointer = fopen(outputFilename, "w");
     if (filePointer == NULL) {
         return false; // Failed to open file
     }
@@ -65,3 +67,5 @@ bool saveCardDeckToFile(Deck* deck, const char* filename) {
     fclose(filePointer);
     return true;
 }
+
+

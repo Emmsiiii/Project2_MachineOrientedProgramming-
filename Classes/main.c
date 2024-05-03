@@ -343,116 +343,96 @@ char *showCards(){
 
 // Loads a file and puts the cards in the columns. First horizontal from left to right and then vertical from top to bottom.
 // Right now they get inserted in reversed order (can be fixed by changing the insert() method)
-char* loadCardDeck(char* name){
-
+char* loadCardDeck(char* name) {
     FILE *filePointer;
+    const char* inputFilename = (name == NULL || name[0] == '\0') ? "Deck.txt" : name;
 
-    if (access(name, F_OK) != 0) {
-        filePointer = fopen("DefaultDeck.txt", "r");
-    } else {
-        filePointer = fopen(name, "r");
+    // Check if file exists and is accessible
+    if (access(inputFilename, F_OK) != 0) {
+        return "Error: File does not exist";
     }
 
+    filePointer = fopen(inputFilename, "r");
+    if (filePointer == NULL) {
+        return "Error: Could not open file";
+    }
 
+    struct node *loadedCards[52] = {NULL};
+    int counts[52] = {0}; // To count duplicates
     char line[256];
-    int cardIndex = 1;
+    int cardCount = 0;
 
-    A.head = NULL;
-    C1.head = NULL;
-    C2.head = NULL;
-    C3.head = NULL;
-    C4.head = NULL;
-    C5.head = NULL;
-    C6.head = NULL;
-    C7.head = NULL;
+    while (fgets(line, sizeof(line), filePointer) && cardCount < 52) {
+        int cardValue = 0;
+        enum suitType suit;
 
-
-    while (fgets(line, sizeof (line), filePointer)){
-        struct node *newCard = (struct node*) malloc(sizeof (struct node));
         switch (line[0]) {
-            case 'A':
-                newCard->cardValue = 1;
-                break;
-            case 'T':
-                newCard->cardValue = 10;
-                break;
-            case 'J':
-                newCard->cardValue = 11;
-                break;
-            case 'Q':
-                newCard->cardValue=12;
-                break;
-            case 'K':
-                newCard->cardValue = 13;
-                break;
-            default:
-                newCard->cardValue = line[0]-'0';
-                break;
+            case 'A': cardValue = 1; break;
+            case 'T': cardValue = 10; break;
+            case 'J': cardValue = 11; break;
+            case 'Q': cardValue = 12; break;
+            case 'K': cardValue = 13; break;
+            default: cardValue = line[0] - '0'; break;
         }
-
 
         switch (line[1]) {
-            case 'H':
-                newCard->suit = hearts;
-                break;
-            case 'D':
-                newCard->suit = diamonds;
-                break;
-            case 'S':
-                newCard->suit = spades;
-                break;
-            case 'C':
-                newCard->suit = clubs;
-                break;
+            case 'H': suit = hearts; break;
+            case 'D': suit = diamonds; break;
+            case 'S': suit = spades; break;
+            case 'C': suit = clubs; break;
         }
 
-        insertLast(&A, newCard->cardValue,newCard->suit, false);
-
-        switch (cardIndex%7) {
-            case 1:
-                insertLast(&C1, newCard->cardValue, newCard->suit, false);
-                break;
-            case 2:
-                insertLast(&C2, newCard->cardValue, newCard->suit, false);
-                break;
-            case 3:
-                insertLast(&C3, newCard->cardValue, newCard->suit, false);
-                break;
-            case 4:
-                insertLast(&C4, newCard->cardValue, newCard->suit, false);
-                break;
-            case 5:
-                insertLast(&C5, newCard->cardValue, newCard->suit, false);
-                break;
-            case 6:
-                insertLast(&C6, newCard->cardValue, newCard->suit, false);
-                break;
-            default:
-                insertLast(&C7, newCard->cardValue, newCard->suit, false);
-                break;
-
+        int index = (cardValue - 1) + (suit * 13);
+        if (counts[index] == 0) {
+            struct node* newCard = (struct node*) malloc(sizeof(struct node));
+            newCard->cardValue = cardValue;
+            newCard->suit = suit;
+            newCard->visible = false;
+            loadedCards[cardCount] = newCard;
+            counts[index]++;
+            cardCount++;
+        } else {
+            // Cleanup on duplicate card found
+            while(cardCount--) {
+                free(loadedCards[cardCount]);
+            }
+            fclose(filePointer);
+            return "Error: Duplicate card found";
         }
-        cardIndex += 1;
-
     }
+
+    if (cardCount != 52) {
+        // Cleanup if not exactly 52 cards
+        while(cardCount--) {
+            free(loadedCards[cardCount]);
+        }
+        fclose(filePointer);
+        return "Error: Incorrect number of cards";
+    }
+
+    // All cards are unique and exactly 52, now insert them to the linked list
+    for (int i = 0; i < 52; i++) {
+        insertLast(&A, loadedCards[i]->cardValue, loadedCards[i]->suit, false);
+        free(loadedCards[i]);
+    }
+
     fclose(filePointer);
-    return "OK";
+    updateCardPiles();
+    return "Deck loaded";
 }
 
-// Should save the cards in the columns to a file
-char* saveCardDeck(char* filename){
 
+// Should save the cards in the columns to a file
+char* saveCardDeck(char* filename) {
     FILE *fb;
 
-    if (access(filename, F_OK) != 0) {
-        fb = fopen("card.txt", "w");
-    } else {
-        fb = fopen(filename, "w");
-    }
+    // Default to "deck.txt" if no filename is provided or if the filename is an empty string
+    const char* outputFilename = (filename == NULL || filename[0] == '\0') ? "deck.txt" : filename;
+
+    fb = fopen(outputFilename, "w"); // This will create a new file or overwrite an existing one
 
     struct node *el = A.head;
-
-    while (el != NULL){
+    while (el != NULL) {
         switch (el->cardValue) {
             case 1:
                 putc('A', fb);
@@ -473,6 +453,7 @@ char* saveCardDeck(char* filename){
                 fprintf(fb, "%d", el->cardValue);
                 break;
         }
+
         switch (el->suit) {
             case hearts:
                 putc('H',fb);
@@ -493,6 +474,7 @@ char* saveCardDeck(char* filename){
     fclose(fb);
     return "Game saved";
 }
+
 
 char* splitCards(char* splitLine){
     if(A.head == NULL){
@@ -810,10 +792,12 @@ int handleInput(){
     // STARTUP COMMANDS
     if(phase == STARTUP){
         char* comm = strtok(in, " ");
-        if(strcmp(comm, "LD") == 0 ){
-            status = loadCardDeck(strtok(NULL, " "));
-        } else if(strcmp(comm, "SD") == 0 ){
-            status = saveCardDeck(strtok(NULL, " "));
+        if(strcmp(comm, "SD") == 0) {
+            char* filename = strtok(NULL, " ");
+            status = saveCardDeck(filename); // This will pass NULL if no filename is provided
+        } else if(strcmp(comm, "LD") == 0) {
+            char* filename = strtok(NULL, " ");
+            status = loadCardDeck(filename); // Passes NULL if no filename is provided
         } else if(strcmp(comm, "SW") == 0){
             status = showCards();
         }else if(strcmp(comm, "QQ") == 0 ){

@@ -12,4 +12,6 @@
 bool loadCardDeckFromFile(Deck* deck, const char* filename);
 bool saveCardDeckToFile(Deck* deck, const char* filename);
 
+
+
 #endif //PROJECT2_MACHINEORIENTEDPROGRAMMING__FILEHANDLER_H
