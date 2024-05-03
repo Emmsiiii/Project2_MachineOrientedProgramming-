@@ -293,7 +293,7 @@ void printGameBoard(){
             }else{
                 char ftxt[] = "  ";
                 cardToString(&ftxt, findLastElement(&F4));
-                printf("\t\t%s\tF€", ftxt);
+                printf("\t\t%s\tF4", ftxt);
             }
         }
 
