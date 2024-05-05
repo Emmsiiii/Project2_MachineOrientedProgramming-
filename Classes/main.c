@@ -468,7 +468,7 @@ char* saveCardDeck(char* filename) {
                 putc('C',fb);
                 break;
         }
-        putc('\n', fb); // Add a newline character
+        putc('\n', fb);
         el = el->next;
     }
     fclose(fb);
@@ -537,12 +537,10 @@ char* splitCards(char* splitLine){
             newEl2 = newEl2->next;
         }
     }
-
     A.head = splitPile.head;
     updateCardPiles();
     return "Ok";
 }
-
 int columnIndexCalculation(int cardIndex){
     int index = cardIndex%7;
     if(index == 0){
