@@ -144,8 +144,6 @@ struct node* deleteFrom(struct linkedList *list, int cardValue, enum suitType su
 
 }
 //7 linked lists one for each column.
-//Maybe it would be better to just have one??
-// But then it might make some operations a bit harder idk
 struct linkedList A;
 struct linkedList pile1;
 struct linkedList pile2;
@@ -175,7 +173,7 @@ char lastCommand[20];
 char* status = "Welcome to Yukon Solitare!";
 
 // Takes a node struct (card) and changes a str to match the representation of the card.
-// str is the pointer to the string. E.g. 7 of spades becomes 7S.
+// str is the pointer to the string. example: 7 of spades becomes 7S.
 void cardToString(char *str,struct node *card){
     if(card == NULL){
         return;
@@ -212,11 +210,10 @@ void cardToString(char *str,struct node *card){
     char suitNames[4] = {3,4,6,5};
     str[1] = suitNames[card->suit];
 
-
 }
 
 
-//Prints the game like in the project 2 pdf description.
+//Prints the game board
 void printGameBoard(){
     printf("\n");
     printf("C1\tC2\tC3\tC4\tC5\tC6\tC7\n");
@@ -325,7 +322,7 @@ void showColumn(struct linkedList *col){
     }
 }
 
-//Reveals all cards
+// SW function: Reveals all cards
 char *showCards(){
     if(A.head == NULL){
         return "ERROR: No deck loaded";
@@ -341,8 +338,7 @@ char *showCards(){
 }
 
 
-// Loads a file and puts the cards in the columns. First horizontal from left to right and then vertical from top to bottom.
-// Right now they get inserted in reversed order (can be fixed by changing the insert() method)
+// LD function: Loads a file and puts the cards in the columns. From left to right and then vertical from top to bottom.
 char* loadCardDeck(char* name) {
     FILE *filePointer;
     const char* inputFilename = (name == NULL || name[0] == '\0') ? "Deck.txt" : name;
@@ -392,7 +388,7 @@ char* loadCardDeck(char* name) {
             counts[index]++;
             cardCount++;
         } else {
-            // Cleanup on duplicate card found
+
             while(cardCount--) {
                 free(loadedCards[cardCount]);
             }
@@ -402,7 +398,7 @@ char* loadCardDeck(char* name) {
     }
 
     if (cardCount != 52) {
-        // Cleanup if not exactly 52 cards
+
         while(cardCount--) {
             free(loadedCards[cardCount]);
         }
@@ -422,7 +418,7 @@ char* loadCardDeck(char* name) {
 }
 
 
-// Should save the cards in the columns to a file
+// SD function: Saves the cards in the columns to a file
 char* saveCardDeck(char* filename) {
     FILE *fb;
 
@@ -475,7 +471,7 @@ char* saveCardDeck(char* filename) {
     return "Game saved";
 }
 
-
+// SI function
 char* splitCards(char* splitLine){
     if(A.head == NULL){
         return "Error: No deck loaded";
@@ -551,7 +547,7 @@ int columnIndexCalculation(int cardIndex){
 
     return index;
 }
-
+// P function
 char* startPlayPhase(){
     struct node *newCard = A.head;
     if(newCard == NULL){
@@ -719,6 +715,7 @@ bool checkWinCon(){
     return false;
 }
 
+// SR function
 char* shuffleRandom(){
     if(A.head == NULL){
         return "Error: No deck loaded";
@@ -774,7 +771,7 @@ void updateCardPiles(){
     }
 }
 
-// Ask user for command and handles (some of it)
+// Handling userinput
 int handleInput(){
     printf("\nINPUT > ");
     char in[20];
@@ -787,7 +784,7 @@ int handleInput(){
 
 
 
-    // STARTUP COMMANDS
+    // Startup commands for game
     if(phase == STARTUP){
         char* comm = strtok(in, " ");
         if(strcmp(comm, "SD") == 0) {
